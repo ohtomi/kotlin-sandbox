@@ -1,5 +1,6 @@
 plugins {
-    id("org.jetbrains.kotlin.jvm").version("1.3.10")
+    id("org.jetbrains.kotlin.jvm").version(Versions.org_jetbrains_kotlin)
+    id("jmfayard.github.io.gradle-kotlin-dsl-libs").version(Versions.jmfayard_github_io_gradle_kotlin_dsl_libs_gradle_plugin)
     application
 }
 
@@ -8,10 +9,10 @@ repositories {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.10")
+    implementation(Libs.kotlin_stdlib_jdk8)
 
-    testImplementation("org.jetbrains.kotlin:kotlin-test:1.3.10")
-    testImplementation("org.jetbrains.kotlin:kotlin-test-junit:1.3.10")
+    testImplementation(Libs.kotlin_test)
+    testImplementation(Libs.kotlin_test_junit)
 }
 
 application {
