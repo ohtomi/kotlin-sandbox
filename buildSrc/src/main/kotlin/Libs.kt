@@ -7,11 +7,22 @@ import kotlin.String
  *   `$ ./gradlew syncLibs`
  * to update this file */
 object Libs {
+    const val com_jfrog_bintray_gradle_plugin: String =
+            "com.jfrog.bintray:com.jfrog.bintray.gradle.plugin:" + Versions.com_jfrog_bintray_gradle_plugin
+
     const val jmfayard_github_io_gradle_kotlin_dsl_libs_gradle_plugin: String =
             "jmfayard.github.io.gradle-kotlin-dsl-libs:jmfayard.github.io.gradle-kotlin-dsl-libs.gradle.plugin:" + Versions.jmfayard_github_io_gradle_kotlin_dsl_libs_gradle_plugin
 
+    const val org_jetbrains_dokka_gradle_plugin: String =
+            "org.jetbrains.dokka:org.jetbrains.dokka.gradle.plugin:" + Versions.org_jetbrains_dokka_gradle_plugin
+
     const val org_jetbrains_kotlin_jvm_gradle_plugin: String =
             "org.jetbrains.kotlin.jvm:org.jetbrains.kotlin.jvm.gradle.plugin:" + Versions.org_jetbrains_kotlin_jvm_gradle_plugin
+
+    /**
+     * [kotlin-compiler-embeddable website](https://kotlinlang.org/) */
+    const val kotlin_compiler_embeddable: String =
+            "org.jetbrains.kotlin:kotlin-compiler-embeddable:" + Versions.org_jetbrains_kotlin
 
     /**
      * [kotlin-scripting-compiler-embeddable website](https://kotlinlang.org/) */

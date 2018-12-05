@@ -7,7 +7,11 @@ import kotlin.String
  *
  * YOU are responsible for updating manually the dependency version. */
 object Versions {
+    const val com_jfrog_bintray_gradle_plugin: String = "1.8.4" 
+
     const val jmfayard_github_io_gradle_kotlin_dsl_libs_gradle_plugin: String = "0.2.6" 
+
+    const val org_jetbrains_dokka_gradle_plugin: String = "0.9.17" 
 
     const val org_jetbrains_kotlin_jvm_gradle_plugin: String = "1.3.10" 
 
