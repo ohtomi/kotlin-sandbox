@@ -11,6 +11,8 @@ object Versions {
 
     const val jmfayard_github_io_gradle_kotlin_dsl_libs_gradle_plugin: String = "0.2.6" 
 
+    const val org_ajoberstar_reckon_gradle_plugin: String = "0.9.0" 
+
     const val org_jetbrains_dokka_gradle_plugin: String = "0.9.17" 
 
     const val org_jetbrains_kotlin_jvm_gradle_plugin: String = "1.3.10" 
@@ -27,7 +29,7 @@ object Versions {
 
         const val currentVersion: String = "5.0"
 
-        const val nightlyVersion: String = "5.2-20181204000041+0000"
+        const val nightlyVersion: String = "5.2-20181206000048+0000"
 
         const val releaseCandidate: String = ""
     }

@@ -11,6 +11,7 @@ plugins {
     id("org.jetbrains.dokka").version(Versions.org_jetbrains_dokka_gradle_plugin)
     id("jmfayard.github.io.gradle-kotlin-dsl-libs").version(Versions.jmfayard_github_io_gradle_kotlin_dsl_libs_gradle_plugin)
     application
+    id("org.ajoberstar.reckon").version(Versions.org_ajoberstar_reckon_gradle_plugin)
     id("com.jfrog.bintray").version(Versions.com_jfrog_bintray_gradle_plugin)
     `maven-publish`
 }
@@ -27,9 +28,15 @@ dependencies {
 }
 
 
+// https://github.com/ajoberstar/reckon
+reckon {
+    scopeFromProp()
+    stageFromProp("beta", "rc", "final")
+}
+
 val artifactName = project.name
-val artifactGroup = project.group as String
-val artifactVersion = project.version as String
+val artifactGroup = project.group.toString()
+val artifactVersion = project.version.toString()
 
 val applicationMainClassName = ext["application_main_class_name"] as String
 
