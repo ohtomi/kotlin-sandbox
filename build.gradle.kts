@@ -1,10 +1,6 @@
-import java.util.Date
-import java.text.SimpleDateFormat
 import com.jfrog.bintray.gradle.BintrayExtension
-import groovy.lang.Closure
 import org.gradle.jvm.tasks.Jar
 import org.jetbrains.dokka.gradle.DokkaTask
-import org.jetbrains.kotlin.cli.common.toBooleanLenient
 
 plugins {
     id("org.jetbrains.kotlin.jvm").version(Versions.org_jetbrains_kotlin)
@@ -34,33 +30,7 @@ reckon {
     stageFromProp("beta", "rc", "final")
 }
 
-val artifactName = project.name
-val artifactGroup = project.group.toString()
-val artifactVersion = project.version.toString()
-
-val applicationMainClassName = ext["application_main_class_name"] as String
-
-val manifestMainClass = extIfExists("manifest_main_class", applicationMainClassName)
-val manifestImplementationTitle = extIfExists("manifest_implementation_title", "$artifactGroup:$artifactName")
-val manifestImplementationVersion = extIfExists("manifest_implementation_version", artifactVersion)
-
-val bintrayUsername = extIfExists("bintray_username", System.getenv("BINTRAY_USER") ?: "")
-val bintrayApiKey = extIfExists("bintray_api_key", System.getenv("BINTRAY_KEY") ?: "")
-val developerId = extIfExists("developer_id", System.getenv("DEVELOPER_ID") ?: "")
-val developerName = extIfExists("developer_name", System.getenv("DEVELOPER_NAME") ?: "")
-val developerEmail = extIfExists("developer_email", System.getenv("DEVELOPER_EMAIL") ?: "")
-
-val packageName = extIfExists("package_name", "$artifactGroup:$artifactName")
-val packageDescription = extIfExists("package_description", "")
-val packageWebsiteUrl = extIfExists("package_website_url", "https://github.com/user/repo")
-val packageIssueTrackerUrl = extIfExists("package_issue_tracker_url", "$packageWebsiteUrl/issues")
-val packageVcsUrl = extIfExists("package_vcs_url", "$packageWebsiteUrl.git")
-val packageLicenseName = extIfExists("package_license_name", "MIT")
-val packageLicenseUrl = extIfExists("package_license_url", "https://opensource.org/licenses/MIT")
-val packageLabels = extIfExists("package_labels", "").split(",").toTypedArray()
-val packageVersionName = extIfExists("package_version_name", artifactVersion)
-val packageVersionReleased: String = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZZ").format(Date())
-val packageVersionVcsTag = extIfExists("package_version_vcs_tag", artifactVersion)
+val props = Props(project)
 
 val bintrayDryRun = true
 val bintrayPublish = true
@@ -70,9 +40,9 @@ val bintrayOverride = false
 val jar by tasks.existing(Jar::class) {
     manifest(closureOf<Manifest> {
         attributes(mapOf(
-                "Main-Class" to manifestMainClass,
-                "Implementation-Title" to manifestImplementationTitle,
-                "Implementation-Version" to manifestImplementationVersion
+                "Main-Class" to props.manifestMainClass,
+                "Implementation-Title" to props.manifestImplementationTitle,
+                "Implementation-Version" to props.manifestImplementationVersion
         ))
     })
 }
@@ -95,7 +65,7 @@ val javadocJar by tasks.creating(Jar::class) {
 javadocJar.dependsOn(dokka)
 
 application {
-    mainClassName = applicationMainClassName
+    mainClassName = props.applicationMainClassName
 }
 
 // https://github.com/bintray/gradle-bintray-plugin
@@ -106,59 +76,52 @@ publishing {
         from(components.get("java"))
         artifact(sourcesJar)
         artifact(javadocJar)
-        groupId = artifactGroup
-        artifactId = artifactName
-        version = artifactVersion
+        groupId = props.artifactGroup
+        artifactId = props.artifactName
+        version = props.artifactVersion
         pom.withXml {
             asNode().apply {
-                appendNode("name", packageName)
-                appendNode("description", packageDescription)
-                appendNode("url", packageWebsiteUrl)
+                appendNode("name", props.packageName)
+                appendNode("description", props.packageDescription)
+                appendNode("url", props.packageWebsiteUrl)
                 appendNode("licenses")
                         .appendNode("license").apply {
-                            appendNode("name", packageLicenseName)
-                            appendNode("url", packageLicenseUrl)
+                            appendNode("name", props.packageLicenseName)
+                            appendNode("url", props.packageLicenseUrl)
                         }
                 appendNode("developers")
                         .appendNode("developer").apply {
-                            appendNode("id", developerId)
-                            appendNode("name", developerName)
-                            appendNode("email", developerEmail)
+                            appendNode("id", props.developerId)
+                            appendNode("name", props.developerName)
+                            appendNode("email", props.developerEmail)
                         }
-                appendNode("scm").appendNode("url", packageVcsUrl)
+                appendNode("scm").appendNode("url", props.packageVcsUrl)
             }
         }
     }
 }
 
 bintray {
-    user = bintrayUsername
-    key = bintrayApiKey
+    user = props.bintrayUsername
+    key = props.bintrayApiKey
     setPublications(publicationName)
     dryRun = bintrayDryRun
     publish = bintrayPublish
     override = bintrayOverride
     pkg(closureOf<BintrayExtension.PackageConfig> {
         repo = "maven"
-        name = packageName
-        userOrg = bintrayUsername
-        websiteUrl = packageWebsiteUrl
-        issueTrackerUrl = packageIssueTrackerUrl
-        vcsUrl = packageVcsUrl
-        setLicenses(packageLicenseName)
-        setLabels(*packageLabels)
+        name = props.packageName
+        userOrg = props.bintrayUsername
+        websiteUrl = props.packageWebsiteUrl
+        issueTrackerUrl = props.packageIssueTrackerUrl
+        vcsUrl = props.packageVcsUrl
+        setLicenses(props.packageLicenseName)
+        setLabels(*props.packageLabels)
         publicDownloadNumbers = true
         version(closureOf<BintrayExtension.VersionConfig> {
-            name = packageVersionName
-            released = packageVersionReleased
-            vcsTag = packageVersionVcsTag
+            name = props.packageVersionName
+            released = props.packageVersionReleased
+            vcsTag = props.packageVersionVcsTag
         })
     })
-}
-
-
-fun Project.extIfExists(name: String, defaultValue: String): String = if (ext.has(name)) {
-    ext[name] as String
-} else {
-    defaultValue
 }
