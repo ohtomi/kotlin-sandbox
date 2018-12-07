@@ -13,6 +13,9 @@ object Libs {
     const val jmfayard_github_io_gradle_kotlin_dsl_libs_gradle_plugin: String =
             "jmfayard.github.io.gradle-kotlin-dsl-libs:jmfayard.github.io.gradle-kotlin-dsl-libs.gradle.plugin:" + Versions.jmfayard_github_io_gradle_kotlin_dsl_libs_gradle_plugin
 
+    const val net_ossindex_audit_gradle_plugin: String =
+            "net.ossindex.audit:net.ossindex.audit.gradle.plugin:" + Versions.net_ossindex_audit_gradle_plugin
+
     const val org_ajoberstar_reckon_gradle_plugin: String =
             "org.ajoberstar.reckon:org.ajoberstar.reckon.gradle.plugin:" + Versions.org_ajoberstar_reckon_gradle_plugin
 

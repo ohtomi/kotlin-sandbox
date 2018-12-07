@@ -5,6 +5,7 @@ import org.jetbrains.dokka.gradle.DokkaTask
 plugins {
     id("org.jetbrains.kotlin.jvm").version(Versions.org_jetbrains_kotlin)
     id("org.jetbrains.dokka").version(Versions.org_jetbrains_dokka_gradle_plugin)
+    id("net.ossindex.audit").version(Versions.net_ossindex_audit_gradle_plugin)
     id("jmfayard.github.io.gradle-kotlin-dsl-libs").version(Versions.jmfayard_github_io_gradle_kotlin_dsl_libs_gradle_plugin)
     application
     id("org.ajoberstar.reckon").version(Versions.org_ajoberstar_reckon_gradle_plugin)
@@ -52,6 +53,11 @@ val dokka by tasks.existing(DokkaTask::class) {
     outputFormat = "html"
     outputDirectory = "$buildDir/docs/dokka"
     jdkVersion = 8
+}
+
+// https://github.com/OSSIndex/ossindex-gradle-plugin
+audit {
+    failOnError = false
 }
 
 val sourcesJar by tasks.creating(Jar::class) {

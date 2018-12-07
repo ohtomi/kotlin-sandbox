@@ -11,6 +11,8 @@ object Versions {
 
     const val jmfayard_github_io_gradle_kotlin_dsl_libs_gradle_plugin: String = "0.2.6" 
 
+    const val net_ossindex_audit_gradle_plugin: String = "0.3.21" 
+
     const val org_ajoberstar_reckon_gradle_plugin: String = "0.9.0" 
 
     const val org_jetbrains_dokka_gradle_plugin: String = "0.9.17" 
