@@ -61,15 +61,15 @@ audit {
 }
 
 val sourcesJar by tasks.creating(Jar::class) {
-    from(sourceSets.get("main").allSource)
+    from(sourceSets["main"].allSource)
     classifier = "sources"
 }
 
 val javadocJar by tasks.creating(Jar::class) {
     from(dokka.get().outputDirectory)
     classifier = "javadoc"
+    dependsOn(dokka)
 }
-javadocJar.dependsOn(dokka)
 
 application {
     mainClassName = props.applicationMainClassName
@@ -80,7 +80,7 @@ val publicationName = "jcenterPublications"
 
 publishing {
     publications.create(publicationName, MavenPublication::class) {
-        from(components.get("java"))
+        from(components["java"])
         artifact(sourcesJar)
         artifact(javadocJar)
         groupId = props.artifactGroup
