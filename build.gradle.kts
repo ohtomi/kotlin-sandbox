@@ -5,6 +5,7 @@ import org.jetbrains.dokka.gradle.DokkaTask
 plugins {
     id("org.jetbrains.kotlin.jvm").version(Versions.org_jetbrains_kotlin)
     id("org.jetbrains.dokka").version(Versions.org_jetbrains_dokka_gradle_plugin)
+    id("io.gitlab.arturbosch.detekt").version(Versions.io_gitlab_arturbosch_detekt)
     id("net.ossindex.audit").version(Versions.net_ossindex_audit_gradle_plugin)
     id("jmfayard.github.io.gradle-kotlin-dsl-libs").version(Versions.jmfayard_github_io_gradle_kotlin_dsl_libs_gradle_plugin)
     application
@@ -26,6 +27,7 @@ dependencies {
     testImplementation(Libs.kotlin_test_junit)
 
     ktlint(Libs.ktlint)
+    detektPlugins(Libs.detekt_formatting)
 }
 
 
@@ -74,8 +76,17 @@ val ktlintCheck by tasks.creating(JavaExec::class) {
     isIgnoreExitValue = true
 }
 
+// https://arturbosch.github.io/detekt
+// https://github.com/arturbosch/detekt
+// https://github.com/arturbosch/detekt/blob/1.0.0-RC11/docs/pages/gettingstarted/kotlindsl.md
+detekt {
+    toolVersion = Versions.io_gitlab_arturbosch_detekt
+    input = files("src/main/kotlin")
+    filters = ".*/resources/.*,.*/build/.*"
+}
+
 val check by tasks.existing {
-    dependsOn(ktlintCheck)
+    dependsOn(ktlintCheck, tasks["detekt"])
 }
 
 // https://github.com/OSSIndex/ossindex-gradle-plugin

@@ -11,6 +11,10 @@ object Versions {
 
     const val com_jfrog_bintray_gradle_plugin: String = "1.8.4" 
 
+    const val io_gitlab_arturbosch_detekt: String = "1.0.0-RC11" 
+            /* Could not find io.gitlab.arturbosch.detekt:detekt-cli:1.0.0-RC11. 
+            .... */
+
     const val jmfayard_github_io_gradle_kotlin_dsl_libs_gradle_plugin: String = "0.2.6" 
 
     const val net_ossindex_audit_gradle_plugin: String = "0.3.21" 
