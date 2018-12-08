@@ -17,11 +17,15 @@ repositories {
     jcenter()
 }
 
+val ktlint by configurations.creating
+
 dependencies {
     implementation(Libs.kotlin_stdlib_jdk8)
 
     testImplementation(Libs.kotlin_test)
     testImplementation(Libs.kotlin_test_junit)
+
+    ktlint(Libs.ktlint)
 }
 
 
@@ -53,6 +57,25 @@ val dokka by tasks.existing(DokkaTask::class) {
     outputFormat = "html"
     outputDirectory = "$buildDir/docs/dokka"
     jdkVersion = 8
+}
+
+// https://ktlint.github.io
+// https://github.com/shyiko/ktlint
+val ktlintCheck by tasks.creating(JavaExec::class) {
+    group = "verification"
+    description = "Check Kotlin code style."
+    classpath = configurations["ktlint"]
+    main = "com.github.shyiko.ktlint.Main"
+    args = listOf(
+            "src/main/kotlin/**/*.kt",
+            "--reporter=plain",
+            "--reporter=checkstyle,output=${buildDir}/reports/ktlint/ktlintMain.xml"
+    )
+    isIgnoreExitValue = true
+}
+
+val check by tasks.existing {
+    dependsOn(ktlintCheck)
 }
 
 // https://github.com/OSSIndex/ossindex-gradle-plugin

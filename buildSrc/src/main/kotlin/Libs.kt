@@ -7,6 +7,10 @@ import kotlin.String
  *   `$ ./gradlew syncLibs`
  * to update this file */
 object Libs {
+    /**
+     * [ktlint website](https://github.com/shyiko/ktlint) */
+    const val ktlint: String = "com.github.shyiko:ktlint:" + Versions.ktlint
+
     const val com_jfrog_bintray_gradle_plugin: String =
             "com.jfrog.bintray:com.jfrog.bintray.gradle.plugin:" + Versions.com_jfrog_bintray_gradle_plugin
 
