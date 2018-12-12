@@ -5,7 +5,7 @@ class Props(project: Project) {
     val artifactGroup = project.group.toString()
     val artifactVersion = project.version.toString()
 
-    val applicationMainClassName = project.extensions.extraProperties["application_main_class_name"].toString()
+    val applicationMainClassName = project.extIfExists("application_main_class_name", "")
 
     val manifestMainClass = project.extIfExists("manifest_main_class", applicationMainClassName)
     val manifestImplementationTitle = project.extIfExists("manifest_implementation_title", "$artifactGroup:$artifactName")

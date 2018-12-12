@@ -57,7 +57,7 @@ val jar by tasks.existing(Jar::class) {
 // https://github.com/Kotlin/dokka
 val dokka by tasks.existing(DokkaTask::class) {
     outputFormat = "html"
-    outputDirectory = "$buildDir/docs/dokka"
+    outputDirectory = "${buildDir}/docs/dokka"
     jdkVersion = 8
 }
 
