@@ -1,6 +1,6 @@
 # kotlin-sandbox
 
-[![License](https://img.shields.io/github/license/ohtomi/kotlin-sandbox.svg)](https://github.com/ohtomi/kotlin-sandbox)
+[![License](https://img.shields.io/github/license/ohtomi/kotlin-sandbox.svg)](LICENSE)
 [![Build Status](https://travis-ci.org/ohtomi/kotlin-sandbox.svg?branch=master)](https://travis-ci.org/ohtomi/kotlin-sandbox)
 
 ## Description
