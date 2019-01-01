@@ -23,9 +23,9 @@ object Versions {
 
     const val org_jetbrains_dokka_gradle_plugin: String = "0.9.17" 
 
-    const val org_jetbrains_kotlin_jvm_gradle_plugin: String = "1.3.10" 
+    const val org_jetbrains_kotlin_jvm_gradle_plugin: String = "1.3.11" 
 
-    const val org_jetbrains_kotlin: String = "1.3.10" 
+    const val org_jetbrains_kotlin: String = "1.3.11" 
 
     /**
      *
@@ -37,8 +37,8 @@ object Versions {
 
         const val currentVersion: String = "5.0"
 
-        const val nightlyVersion: String = "5.2-20181206000048+0000"
+        const val nightlyVersion: String = "5.2-20190101000044+0000"
 
-        const val releaseCandidate: String = ""
+        const val releaseCandidate: String = "5.1-rc-3"
     }
 }
