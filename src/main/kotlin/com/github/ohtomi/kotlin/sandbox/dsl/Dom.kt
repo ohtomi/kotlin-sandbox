@@ -98,9 +98,9 @@ abstract class BlockElement(name: String) : Tag(name) {
     }
 }
 
-class Body : BlockElement("body") {}
+class Body : BlockElement("body")
 
-class Div : BlockElement("div") {}
+class Div : BlockElement("div")
 
 abstract class InlineElement(name: String, text: String) : Tag(name) {
 

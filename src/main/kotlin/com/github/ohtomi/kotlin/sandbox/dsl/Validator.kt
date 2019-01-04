@@ -5,8 +5,10 @@ interface Validatable {
     val name: String
     val value: String
 
-    fun validate(option: ValidateOption = ValidateOption(ValidateLevel.Error),
-                 create: Validators.() -> Validator): ValidateResult {
+    fun validate(
+        option: ValidateOption = ValidateOption(ValidateLevel.Error),
+        create: Validators.() -> Validator
+    ): ValidateResult {
         val validator = Validators.create()
         return validator.validate(this.name, this.value, option)
     }
@@ -50,14 +52,13 @@ class ValidatorOr(val v1: Validator, val v2: Validator) : Validator {
 
     override fun validate(name: String, value: String, option: ValidateOption): ValidateResult {
         val vr1 = v1.validate(name, value, option)
-        if (vr1.errors.isNotEmpty()) {
-            return vr1
+        return if (vr1.errors.isNotEmpty()) {
+            vr1
+        } else if (vr1.warnings.isNotEmpty() && option.level == ValidateLevel.Warning) {
+            vr1
+        } else {
+            vr1 + v2.validate(name, value, option)
         }
-        if (vr1.warnings.isNotEmpty() && option.level == ValidateLevel.Warning) {
-            return vr1
-        }
-        val vr2 = v2.validate(name, value, option)
-        return vr1 + vr2
     }
 }
 
